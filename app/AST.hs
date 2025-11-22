@@ -1,7 +1,12 @@
 module AST where
 
+data Number
+  = IntNum Int
+  | FloatNum Double
+  deriving (Show, Eq)
+
 data Expr
-  = Number Double
+  = Number Number
   | Var String
   | Add Expr Expr
   | Sub Expr Expr
@@ -14,4 +19,5 @@ data Expr
 data Stmt
   = Assign String Expr
   | FunDef String [String] Expr
+  | ExprStmt Expr
   deriving (Show, Eq)
