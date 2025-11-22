@@ -1,8 +1,23 @@
 module Main where
 
-import AST
+import Lexer
+import Parser
+import System.IO
 
 main :: IO ()
 main = do
-  let expr = Add (Sub (Number 10) (Number 5)) (Var "y")
-  print expr
+  putStrLn "Mini Compiler REPL"
+  putStrLn "Statement:"
+  repl
+
+repl :: IO ()
+repl = do
+  putStr "λ "
+  hFlush stdout
+  input <- getLine
+  if input == ":quit"
+    then putStrLn "Bye!"
+    else do
+      let tokens = tokenize input
+      print $ parseFullStmt tokens
+      repl
